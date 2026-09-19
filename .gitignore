@@ -1,0 +1,13 @@
+# Public GitHub storefront — whitelist only.
+# Published: .gitignore, LICENSE, README.md, autoserver.org/docs/
+# Everything else stays local / I handle it manually.
+
+/*
+!.gitignore
+!LICENSE
+!README.md
+
+!autoserver.org/
+/autoserver.org/*
+!autoserver.org/docs/
+!autoserver.org/docs/**

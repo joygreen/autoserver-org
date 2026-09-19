@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Uninstall — AutoServer</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+  <nav class="nav">
+    <a class="nav-brand" href="/">AutoServer</a>
+    <div class="nav-links"><a href="/docs/">Docs</a></div>
+  </nav>
+  <main class="page">
+    <h1>Uninstall</h1>
+    <pre><code>curl -fsSL https://autoserver.org/uninstall.sh | bash</code></pre>
+    <p class="lead">This removes <code>/opt/autoserver</code> and the systemd unit. It does <strong>not</strong> unbind your license key.</p>
+    <p>To reuse the key on another VPS: Dashboard → Unbind machine → install again with the same key.</p>
+    <p>Machine identity stays in <code>/var/lib/autoserver</code> so a reinstall on the same box can bind again. Remove it only if you intend a fresh identity:</p>
+    <pre><code>rm -rf /var/lib/autoserver</code></pre>
+    <p><a href="/docs/">← Docs</a></p>
+  </main>
+</body>
+</html>

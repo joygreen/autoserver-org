@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Local access — AutoServer</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+  <nav class="nav">
+    <a class="nav-brand" href="/">AutoServer</a>
+    <div class="nav-links"><a href="/docs/">Docs</a></div>
+  </nav>
+  <main class="page">
+    <h1>Local access (SSH tunnel)</h1>
+    <p class="lead">
+      AutoServer listens on <code>127.0.0.1:8000</code> by default — not on the public internet.
+      You do <strong>not</strong> need a domain to use chat.
+    </p>
+
+    <h2>No domain (recommended to start)</h2>
+    <p class="lead">Keep it private. Reach chat from your laptop with an SSH tunnel — nothing is exposed to the internet:</p>
+    <pre><code># SSH tunnel — nothing is ever exposed to the internet
+ssh -L 8000:127.0.0.1:8000 user@your-server
+
+# then open http://localhost:8000</code></pre>
+    <ul class="bullets">
+      <li>Leave the SSH session open while you use the UI.</li>
+      <li>Sign in at <code>/login</code>, then open <code>/chat</code>.</li>
+      <li>If you changed <code>PORT</code> in <code>.env</code>, use that port on both sides of <code>-L</code>.</li>
+    </ul>
+
+    <h2>Optional: public HTTPS later</h2>
+    <p class="lead">
+      When you want a hostname, point DNS at the VPS and put Caddy (or nginx) in front of
+      <code>127.0.0.1:8000</code>. Until then, the tunnel is enough — and safer for early testing.
+    </p>
+
+    <p><a href="/docs/">← Docs</a> · <a href="/docs/security.html">Security</a></p>
+  </main>
+</body>
+</html>
