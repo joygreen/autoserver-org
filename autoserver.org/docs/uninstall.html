@@ -15,10 +15,24 @@
   <main class="page">
     <h1>Uninstall</h1>
     <pre><code>curl -fsSL https://autoserver.org/uninstall.sh | bash</code></pre>
-    <p class="lead">This removes <code>/opt/autoserver</code> and the systemd unit. It does <strong>not</strong> unbind your license key.</p>
-    <p>To reuse the key on another VPS: Dashboard → Unbind machine → install again with the same key.</p>
-    <p>Machine identity stays in <code>/var/lib/autoserver</code> so a reinstall on the same box can bind again. Remove it only if you intend a fresh identity:</p>
-    <pre><code>rm -rf /var/lib/autoserver</code></pre>
+    <p class="lead">
+      Removes <code>/opt/autoserver</code> and the systemd unit, and
+      <strong>unbinds</strong> the license key on autoserver.org
+      (key-row becomes unbound; IP / domain / VPS info is cleared).
+    </p>
+    <ul class="bullets">
+      <li>Confirm with <code>yes</code> when prompted.</li>
+      <li>Reinstall on the same VPS or another VPS with the same key works after unbind.</li>
+      <li>Machine identity stays in <code>/var/lib/autoserver</code> unless you purge it.</li>
+    </ul>
+
+    <h2>Options</h2>
+    <pre><code># Keep key bound in the dashboard (skip remote unbind)
+curl -fsSL https://autoserver.org/uninstall.sh | bash -s -- --keep-bound
+
+# Also delete machine identity (new fingerprint on next install)
+curl -fsSL https://autoserver.org/uninstall.sh | bash -s -- --purge-identity</code></pre>
+
     <p><a href="/docs/">← Docs</a></p>
   </main>
 </body>

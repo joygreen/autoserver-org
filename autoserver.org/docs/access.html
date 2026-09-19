@@ -13,29 +13,32 @@
     <div class="nav-links"><a href="/docs/">Docs</a></div>
   </nav>
   <main class="page">
-    <h1>Local access (SSH tunnel)</h1>
+    <h1>Access AutoServer</h1>
     <p class="lead">
-      AutoServer listens on <code>127.0.0.1:8000</code> by default — not on the public internet.
-      You do <strong>not</strong> need a domain to use chat.
+      During install you choose a listen port (default <code>8000</code>) and optionally a domain.
+      The service listens on <code>0.0.0.0:PORT</code> so you can reach it by public IP, domain, or SSH tunnel.
     </p>
 
-    <h2>No domain (recommended to start)</h2>
-    <p class="lead">Keep it private. Reach chat from your laptop with an SSH tunnel — nothing is exposed to the internet:</p>
-    <pre><code># SSH tunnel — nothing is ever exposed to the internet
-ssh -L 8000:127.0.0.1:8000 user@your-server
-
-# then open http://localhost:8000</code></pre>
+    <h2>Public IP or domain</h2>
+    <p class="lead">Open the URL printed at the end of install, for example:</p>
+    <pre><code>http://YOUR_SERVER_IP:8000/login
+http://panel.example.com:8000/login</code></pre>
     <ul class="bullets">
-      <li>Leave the SSH session open while you use the UI.</li>
-      <li>Sign in at <code>/login</code>, then open <code>/chat</code>.</li>
-      <li>If you changed <code>PORT</code> in <code>.env</code>, use that port on both sides of <code>-L</code>.</li>
+      <li>Allow the port in the VPS firewall / security group.</li>
+      <li>HTTPS on a custom port needs a reverse proxy later; install shows <code>http://</code> until then.</li>
+      <li>Leave <strong>Secure cookies</strong> unchecked on first setup unless HTTPS already works.</li>
     </ul>
 
-    <h2>Optional: public HTTPS later</h2>
-    <p class="lead">
-      When you want a hostname, point DNS at the VPS and put Caddy (or nginx) in front of
-      <code>127.0.0.1:8000</code>. Until then, the tunnel is enough — and safer for early testing.
-    </p>
+    <h2>SSH tunnel (local)</h2>
+    <p class="lead">Keep traffic private on your laptop:</p>
+    <pre><code>ssh -L 8000:127.0.0.1:8000 root@YOUR_SERVER_IP
+
+# then open http://127.0.0.1:8000/login</code></pre>
+    <ul class="bullets">
+      <li>Leave the SSH session open while you use the UI.</li>
+      <li>If the tunnel drops during setup Save (connection reset), reconnect SSH and retry — this is usually the tunnel, not a corrupt install.</li>
+      <li>If you changed <code>PORT</code>, use that port on both sides of <code>-L</code>.</li>
+    </ul>
 
     <p><a href="/docs/">← Docs</a> · <a href="/docs/security.html">Security</a></p>
   </main>
