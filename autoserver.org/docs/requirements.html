@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>VPS requirements — AutoServer</title>
+  <link rel="icon" type="image/svg+xml" href="https://autoserver.org/assets/favicon.svg" />
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/assets/style.css">
 </head>
@@ -17,16 +18,19 @@
     <ul class="bullets">
       <li>Ubuntu 22.04+ or Debian (root SSH)</li>
       <li>~1 GB RAM (installer can add 1G swap if needed)</li>
-      <li>Python 3.10+</li>
+      <!-- <li>Python 3.10+</li>
       <li>Outbound HTTPS to autoserver.org (license bind + download)</li>
-      <li>Ports 80/443 if you want public HTTPS via Caddy</li>
+      <li>Ports 80/443 if you want public HTTPS via Caddy</li> -->
     </ul>
     <p class="lead">
-      Without a domain, keep chat private and open it from your laptop via SSH tunnel —
+      Without a domain, keep chat private and open it from IP Address or your laptop via SSH tunnel —
       see <a href="/docs/access.html">Local access</a>.
     </p>
-    <pre><code>ssh -L 8000:127.0.0.1:8000 root@your-server
+    <pre><code>https://your-domain:8000</code></pre>
+    <pre><code>http://your-ipaddress:8000</code></pre>
+    <pre><code>ssh -L 8000:127.0.0.1:8000 root@your-ipserver
 # then http://localhost:8000</code></pre>
+    <pre><code># change port 8000 as selected during installation</code></pre>
     <p><a href="/docs/">← Docs</a></p>
   </main>
 </body>
