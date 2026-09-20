@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Update — AutoServer</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=Syne:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+  <nav class="nav">
+    <a class="nav-brand" href="/">AutoServer</a>
+    <div class="nav-links"><a href="/docs/">Docs</a></div>
+  </nav>
+  <main class="page">
+    <h1>Update</h1>
+    <pre><code>curl -fsSL https://autoserver.org/update.sh | bash</code></pre>
+    <p class="lead">
+      Checks the installed version against the latest release.
+      If already current, it exits. If newer is available, it asks for confirmation, then updates in place.
+    </p>
+    <ul class="bullets">
+      <li>Keeps <code>/opt/autoserver/.env</code> (API keys, password, port, domain).</li>
+      <li>Keeps <code>/opt/autoserver/data/</code> (chat history, notes, settings DB).</li>
+      <li>Keeps <code>/var/lib/autoserver/</code> (machine fingerprint).</li>
+      <li>Does <strong>not</strong> require reinstall or unbind.</li>
+    </ul>
+    <h2>Options</h2>
+    <pre><code># Skip confirmation
+curl -fsSL https://autoserver.org/update.sh | bash -s -- --yes
+
+# Update to a specific version
+curl -fsSL https://autoserver.org/update.sh | bash -s -- --version 0.1.1</code></pre>
+    <p><a href="/docs/">← Docs</a> · <a href="/docs/uninstall.html">Uninstall</a></p>
+  </main>
+</body>
+</html>
