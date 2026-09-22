@@ -16,22 +16,42 @@
   <main class="page">
     <h1>Access AutoServer</h1>
     <p class="lead">
-      During install you choose a listen port (default <code>8000</code>) and optionally a domain.
-      The service listens on <code>0.0.0.0:PORT</code> so you can reach it by public IP, domain, or SSH tunnel.
+      During install you choose a listen port (default <code>8000</code>) and optionally a domain/subdomain.
+      How you open the UI depends on that choice.
     </p>
 
-    <h2>Public IP or domain</h2>
-    <p class="lead">Open the URL printed at the end of install, for example:</p>
-    <pre><code>http://YOUR_SERVER_IP:8000/login
-http://panel.example.com:8000/login</code></pre>
+    <h2>1. Domain + HTTPS (recommended)</h2>
+    <p class="lead">
+      If you enter a domain/subdomain and accept Caddy HTTPS, install configures Caddy with a Let's Encrypt
+      certificate and reverse-proxies to the app on localhost. Open:
+    </p>
+    <pre><code>https://panel.example.com/login</code></pre>
     <ul class="bullets">
-      <li>Allow the port in the VPS firewall / security group.</li>
-      <li>HTTPS on a custom port needs a reverse proxy later; install shows <code>http://</code> until then.</li>
-      <li>Leave <strong>Secure cookies</strong> unchecked on first setup unless HTTPS already works.</li>
+      <li>DNS <strong>A/AAAA</strong> for the domain/subdomain must already point to this VPS before install.</li>
+      <li>Firewall should allow <strong>80</strong> and <strong>443</strong> (install opens them when UFW is active).</li>
+      <li>The app binds <code>127.0.0.1:PORT</code>; public traffic goes through Caddy only.</li>
+      <li><strong>Secure cookies</strong> are enabled automatically (<code>COOKIE_SECURE=1</code>).</li>
+      <li>Skip HTTPS at install with <code>--no-https</code>, or answer <code>n</code> when prompted — then use the HTTP URL below.</li>
     </ul>
 
-    <h2>SSH tunnel (local)</h2>
-    <p class="lead">Keep traffic private on your laptop:</p>
+    <h2>2. Public IP (no domain)</h2>
+    <p class="lead">Open the URL printed at the end of install, for example:</p>
+    <pre><code>http://YOUR_SERVER_IP:8000/login</code></pre>
+    <ul class="bullets">
+      <li>Allow the app port in the VPS firewall / security group.</li>
+      <li>Leave <strong>Secure cookies</strong> unchecked unless you terminate TLS yourself.</li>
+    </ul>
+
+    <h2>3. Domain without HTTPS</h2>
+    <p class="lead">If you set a domain/subdomain but skipped Caddy:</p>
+    <pre><code>http://panel.example.com:8000/login</code></pre>
+    <ul class="bullets">
+      <li>Same as IP access: app listens on <code>0.0.0.0:PORT</code>.</li>
+      <li>You can re-run install with the domain later, or add a reverse proxy yourself.</li>
+    </ul>
+
+    <h2>4. SSH tunnel (local)</h2>
+    <p class="lead">Keep traffic private on your laptop (works even when the app is bound to localhost):</p>
     <pre><code>ssh -L 8000:127.0.0.1:8000 root@YOUR_SERVER_IP
 
 # then open http://127.0.0.1:8000/login</code></pre>
